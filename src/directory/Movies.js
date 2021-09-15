@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Movies = () => {
-    
-    // - Create a state to store movie results
-    const [movieResults, setMovieResults] = useState({});
+const Movies = (props) => {
 
-    const response = axios.get(
-        `http://www.omdbapi.com/?apikey=7724c915`
-    )
+    useEffect(() => {
+        movieList = async () => {
+            try {
+                const generateList = axios.get(
+                    'http://www.omdbapi.com/?apikey=7724c915'
+                )
 
-    console.log(response);
-    // setMovieResults(response.data);
+                console.log(generateList);
+                props.setMovieResults(generateList.data);
+            }
+            catch (error) {
+                console.log(error);
+            };
 
 
-    return (
-        <div>
-            THIS IS THE MOVIES PAGE
-        </div>
-    );
+
+        };
+    }, );
+
+    //- Create a list of our results
+    console.log(props.movieResults)
+
+
+
+
+return (
+    <div>
+        THIS IS THE MOVIES PAGE
+        {console.log(movieList)}
+    </div>
+);
 };
 
 export default Movies

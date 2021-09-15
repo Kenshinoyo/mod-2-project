@@ -15,7 +15,7 @@ import '../App.css';
 
 const App = () => {
   
-  // - Global states for movie data
+  // - Global states for movie data that can be props passed through the necessary components
   const [userInput, setUserInput] = useState("");
   const [movieResults, setMovieResults] = useState({});
 

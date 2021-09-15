@@ -5,13 +5,13 @@ import axios from 'axios';
 const SearchBar = (props) => {
 
     useEffect(() => {
-        const helperFunction = async () => {
+        const searchFunction = async () => {
             try {
                 const response = await axios.get(
-                    `http://www.omdbapi.com/?apikey=7724c915&t=${props.userInput}`
+                    `http://www.omdbapi.com/?apikey=7724c915&t=${props.userInput}` //<--HTTP GET request using a concatenation of the "userInput" state
                 )
 
-                //- Provide the movie results to our result variable
+                //- Pass the returned movie results/data into a result variable
 
                 console.log(response);
                 props.setMovieResults(response.data);
@@ -21,8 +21,9 @@ const SearchBar = (props) => {
                 console.log(error);
             }
         };
-        if (props.userInput) {
-            // - Call async function
+        
+        // - Conditional statement to trigger async function every time the "userInput" state changes
+        if (props.userInput) {          
             helperFunction();
         }
     }, [props.userInput])
@@ -38,7 +39,7 @@ const SearchBar = (props) => {
             <div>
                 <form className="ui segment"
                     onSubmit={(e) => {
-                        // return helperFunction(userInput);
+                        // return searchFunction(userInput);
                     }}
                 >
                     <div className="ui form">
