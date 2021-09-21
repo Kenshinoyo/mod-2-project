@@ -1,23 +1,20 @@
 // This file is used for rendering everything the app needs and accesses. 
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom'; 
-import axios from 'axios';
 
 import NavBar from '../components/NavBar'; 
 import SearchBar from '../components/SearchBar';
 import Footer from '../components/Footer';
+import Results from '../components/Results';
 
 import Home from './Home';
-import Movies from './Movies'; 
+import Movies from './Movies';
+  
 
 import '../App.css';
 
 const App = () => {
-  
-  // - Global states for movie data that can be props passed through the necessary components
-  const [userInput, setUserInput] = useState("");
-  const [movieResults, setMovieResults] = useState({});
 
   return (
     <div id="app" > 
@@ -35,9 +32,14 @@ const App = () => {
           <Movies />
         </Route>
 
+        <Route exact path="/results"> 
+          <Results />
+        </Route>
+
       </Switch>
 
       <Footer />
+      
     </div >
   );
 }

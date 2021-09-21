@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { /*useState*/ } from 'react';
+
 
 const Movies = (props) => {
+    
+    // const [category, setCategory] = useState("");
+    // movieList = async () => {
+    //         try {
+    //             const generateList = axios.get(
+    //                 'http://www.omdbapi.com/?apikey=7724c915'
+    //             )
 
-    useEffect(() => {
-        movieList = async () => {
-            try {
-                const generateList = axios.get(
-                    'http://www.omdbapi.com/?apikey=7724c915'
-                )
-
-                console.log(generateList);
-                props.setMovieResults(generateList.data);
-            }
-            catch (error) {
-                console.log(error);
-            };
+    //             console.log(generateList);
+    //             props.setMovieResults(generateList.data);
+    //         }
+    //         catch (error) {
+    //             console.log(error);
+    //         };
+    // useEffect(() => {
+        
 
 
 
-        };
-    }, );
+    //     };
+    // }, );
 
     //- Create a list of our results
     console.log(props.movieResults)
@@ -31,7 +33,7 @@ const Movies = (props) => {
 return (
     <div>
         THIS IS THE MOVIES PAGE
-        {console.log(movieList)}
+        {/* {console.log(movieList)} */}
     </div>
 );
 };

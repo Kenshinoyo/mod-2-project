@@ -1,68 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import searchFunction from '../Actions';
+import { connect } from 'react-redux';
+// import { Link } from 'react-router-dom';
 
+// import Results from './Results';
+
+
+const mapStateToProps = (state) => {
+    return { movieResults: state.resultsReducer.movieResults }
+
+}
 
 const SearchBar = (props) => {
 
-    useEffect(() => {
-        const searchFunction = async () => {
-            try {
-                const response = await axios.get(
-                    `http://www.omdbapi.com/?apikey=7724c915&t=${props.userInput}` //<--HTTP GET request using a concatenation of the "userInput" state
-                )
+    const [userInput, setUserInput] = useState("");
+    const [searchQuery, setSearchQuery] = useState(""); //<--Ensures searchFunction only uses the user's completed input
 
-                //- Pass the returned movie results/data into a result variable
+    // - Conditional statement to trigger async function every time the "userInput" state changes
+    useEffect(() => { props.searchFunction(searchQuery) }, [searchQuery])
 
-                console.log(response);
-                props.setMovieResults(response.data);
-            }
-
-            catch (error) {
-                console.log(error);
-            }
-        };
-        
-        // - Conditional statement to trigger async function every time the "userInput" state changes
-        if (props.userInput) {          
-            helperFunction();
-        }
-    }, [props.userInput])
-
-    //- Create a list of our results
+    //- Display results on console
     console.log(props.movieResults);
 
 
 
 
 
-        return (
-            <div>
-                <form className="ui segment"
-                    onSubmit={(e) => {
-                        // return searchFunction(userInput);
-                    }}
-                >
-                    <div className="ui form">
-                        <div className="field">
-                            <label>Search: </label>
-                            <input
-                                type="text"
-                                onChange={(e) => {
-                                    return props.setUserInput(e.target.value);
-                                }}
-                                value={props.userInput}
-                            />
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault()
+    return (
+        <div>
+            <form className="searchForm"
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    setSearchQuery(userInput)
+                    setUserInput("")
+                }}
+            >
+                <div className="ui form">
+                    <div className="field">
+                        <label>Search: </label>
+                        <input
+                            type="text"
+                            onChange={(e) => {
+                                return setUserInput(e.target.value);
+                            }}
+                            value={userInput}
+                        />
+                        <button
+                            type="submit" 
+                            /*onClick=
+                            {<Link to="/results"></Link>}*/
 
-                                    props.setUserInput(props.userInput)}}> Submit
-                            </button>
-                        </div>
+                        > 
+                            Submit
+                        </button>
                     </div>
-                </form>
-            </div>
-        )
-    };
+                </div>
+            </form>
+        </div>
+    )
+};
 
-export default SearchBar
+export default connect(mapStateToProps, { searchFunction })(SearchBar);
